@@ -1,0 +1,31 @@
+language: go
+
+branches:
+  only:
+    - master
+    - develop
+
+go_import_path: github.com/relnod/alp
+
+jobs:
+  include:
+    - stage: test
+      install:
+        - go get github.com/relnod/alp
+        - go get -t -v ./...
+      script:
+        - go test -v -race ./...
+      after_success:
+        - ./scripts/coverage.sh
+        - mv profile.cov coverage.txt
+        - bash <(curl -s https://codecov.io/bash)
+
+    - stage: lint
+      go: 1.9
+      install: 
+        - GO_FILES=$(find . -iname '*.go' -type f)
+        - go get github.com/golang/lint/golint
+      script:
+        - test -z $(gofmt -s -l $GO_FILES)
+        - go vet ./...  
+        - golint -set_exit_status $(go list ./...)
