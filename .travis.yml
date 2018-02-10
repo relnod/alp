@@ -21,7 +21,8 @@ jobs:
         - bash <(curl -s https://codecov.io/bash)
 
     - stage: lint
-      go: 1.9
+      go:
+        - "1.9"
       install: 
         - GO_FILES=$(find . -iname '*.go' -type f)
         - go get github.com/golang/lint/golint
