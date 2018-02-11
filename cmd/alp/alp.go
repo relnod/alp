@@ -19,7 +19,7 @@ func main() {
 			ColEnd: 10,
 		},
 	}
-	r, err := fs.GetReader()
+	r, err := fs.NewReader()
 	if err != nil {
 		panic(err)
 	}
@@ -44,7 +44,7 @@ func main() {
 
 	fmt.Println(t2)
 
-	r2, _ := fs.GetReader()
+	r2, _ := fs.NewReader()
 
 	r2.Read(buffer)
 	fmt.Println(string(buffer))

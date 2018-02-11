@@ -22,8 +22,8 @@ type Source interface {
 	// Type returns the type of the source.
 	Type() Type
 
-	// GetReader returns a new io.Reader for the source.
-	GetReader() (io.Reader, error)
+	// NewReader returns a new io.Reader for the source.
+	NewReader() (io.Reader, error)
 }
 
 // Line defines the line in a source.

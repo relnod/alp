@@ -25,9 +25,9 @@ func (s *FileSource) Type() Type {
 	return File
 }
 
-// GetReader returns a new io.Reader, thst reads the contents of the source
+// NewReader returns a new io.Reader, thst reads the contents of the source
 // file.
-func (s *FileSource) GetReader() (io.Reader, error) {
+func (s *FileSource) NewReader() (io.Reader, error) {
 	f, err := os.Open(s.filename)
 	if err != nil {
 		return nil, err
