@@ -21,6 +21,11 @@ func (s *EvalSource) Name() string {
 	return s.name
 }
 
+// Type returns source.Eval
+func (s *EvalSource) Type() Type {
+	return Eval
+}
+
 // GetReader returns a new reader for the eval source. The Reader will return
 // the whole source at once.
 func (s *EvalSource) GetReader() (io.Reader, error) {

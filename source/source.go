@@ -4,16 +4,25 @@ import (
 	"io"
 )
 
+// Type represents the type of a source.
+type Type uint8
+
+// Source types
+const (
+	File Type = iota
+	Eval
+)
+
 // Source defines the interface for a source. Example sources are a source
 // file or an evaluated string.
-//
-// TODO: SourceMap
-//
 type Source interface {
-	// Name returns the name of the source
+	// Name returns the name of the source.
 	Name() string
 
-	// GetReader returns a new io.Reader for the source
+	// Type returns the type of the source.
+	Type() Type
+
+	// GetReader returns a new io.Reader for the source.
 	GetReader() (io.Reader, error)
 }
 
