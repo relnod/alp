@@ -1,9 +1,21 @@
-// TODO: SourceMap
-
 package source
 
-// ID is the id of a source, i.e. source file or evaluated string.
-type ID = uint
+import (
+	"io"
+)
+
+// Source defines the interface for a source. Example sources are a source
+// file or an evaluated string.
+//
+// TODO: SourceMap
+//
+type Source interface {
+	// Name returns the name of the source
+	Name() string
+
+	// GetReader returns a new io.Reader for the source
+	GetReader() (io.Reader, error)
+}
 
 // Line defines the line in a source.
 type Line = uint
@@ -26,7 +38,7 @@ type Cursor struct {
 // Span defines a range of characters in a piece of source code, possibly
 // spanning multiple lines.
 type Span struct {
-	Source ID
+	Source Source
 	Beg    Cursor
 	End    Cursor
 }

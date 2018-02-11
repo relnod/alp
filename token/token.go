@@ -98,7 +98,7 @@ func (t Token) String() string {
 
 // Span defines the span of a token inside a piece of source code.
 type Span struct {
-	Source source.ID
+	Source source.Source
 	Line   source.Line
 	ColBeg source.Column
 	ColEnd source.Column
@@ -108,6 +108,11 @@ type Span struct {
 //
 // TODO: convert Source to a more meaningfull string
 func (s Span) String() string {
-	return fmt.Sprintf("{ Source: %d, Line: %d, ColBeg: %d, ColEnd: %d }",
-		s.Source, s.Line, s.ColBeg, s.ColEnd)
+	sourceName := ""
+	if s.Source != nil {
+		sourceName = s.Source.Name()
+	}
+
+	return fmt.Sprintf("{ Source: %s, Line: %d, ColBeg: %d, ColEnd: %d }",
+		sourceName, s.Line, s.ColBeg, s.ColEnd)
 }
