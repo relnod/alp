@@ -26,8 +26,8 @@ func (s *EvalSource) Type() Type {
 	return Eval
 }
 
-// GetReader returns a new reader for the eval source. The Reader will return
+// NewReader returns a new reader for the eval source. The Reader will return
 // the whole source at once.
-func (s *EvalSource) GetReader() (io.Reader, error) {
+func (s *EvalSource) NewReader() (io.Reader, error) {
 	return bytes.NewReader([]byte(s.source)), nil
 }
