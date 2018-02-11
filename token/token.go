@@ -6,10 +6,14 @@
 // TODO: add ToString for Token
 package token
 
-import "github.com/relnod/alp/source"
+import (
+	"fmt"
+
+	"github.com/relnod/alp/source"
+)
 
 // Type defines the type of a token.
-type Type = uint8
+type Type uint8
 
 // Token types
 const (
@@ -41,6 +45,43 @@ const (
 	keywordEnd
 )
 
+// types defines the string representation of token types
+var types = [...]string{
+	Invalid: "Invalid",
+
+	EOF:     "EOF",
+	Comment: "Comment",
+
+	Ident: "Ident",
+	Int:   "Int",
+	Float: "Float",
+
+	Assign:    "=",
+	Semicolon: ";",
+	Colon:     ":",
+
+	Add: "+",
+	Sub: "-",
+	Div: "/",
+	Mod: "%",
+
+	Let: "let",
+}
+
+// String converts a token type to it's string representation.
+func (t Type) String() string {
+	s := ""
+	if t < Type(len(types)) {
+		s = types[t]
+	}
+
+	if s == "" {
+		s = fmt.Sprintf("Unkown Token: %d", t)
+	}
+
+	return s
+}
+
 // Token defines a token including its type, possibly empty value, and original
 // position in the source code.
 type Token struct {
@@ -49,10 +90,24 @@ type Token struct {
 	Span  Span
 }
 
+// String converts a token to a string.
+func (t Token) String() string {
+	return fmt.Sprintf("{ Type: %s, Value: \"%s\", Span: %s }",
+		t.Type, t.Value, t.Span)
+}
+
 // Span defines the span of a token inside a piece of source code.
 type Span struct {
 	Source source.ID
 	Line   source.Line
 	ColBeg source.Column
 	ColEnd source.Column
+}
+
+// String converts a span to its string representation
+//
+// TODO: convert Source to a more meaningfull string
+func (s Span) String() string {
+	return fmt.Sprintf("{ Source: %d, Line: %d, ColBeg: %d, ColEnd: %d }",
+		s.Source, s.Line, s.ColBeg, s.ColEnd)
 }
