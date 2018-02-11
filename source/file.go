@@ -20,6 +20,11 @@ func (s *FileSource) Name() string {
 	return s.filename
 }
 
+// Type returns source.File
+func (s *FileSource) Type() Type {
+	return File
+}
+
 // GetReader returns a new io.Reader, thst reads the contents of the source
 // file.
 func (s *FileSource) GetReader() (io.Reader, error) {
